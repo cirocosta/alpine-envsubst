@@ -1,17 +1,14 @@
-FROM alpine:3.4
+FROM alpine:3.6
 
-MAINTAINER Ciro S. Costa <ciro.costa@liferay.com>
-
-ENV \
-    BUILD_DEPS="gettext"  \
+ENV BUILD_DEPS="gettext"  \
     RUNTIME_DEPS="libintl"
 
-RUN \
+RUN set -x && \
     apk add --update $RUNTIME_DEPS && \
     apk add --virtual build_deps $BUILD_DEPS &&  \
     cp /usr/bin/envsubst /usr/local/bin/envsubst && \
     apk del build_deps
 
-COPY ./entrypoint.sh /usr/bin/entrypoint.sh
+ADD ./entrypoint.sh /usr/local/bin/entrypoint
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "entrypoint" ]
