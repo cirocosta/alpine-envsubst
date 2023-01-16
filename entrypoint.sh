@@ -1,6 +1,7 @@
 #!/bin/sh
 
-readonly subst=$(echo $@ | envsubst)
-set -- $subst
-
 echo $@
+
+set -x
+
+envsubst < $1 > $2
