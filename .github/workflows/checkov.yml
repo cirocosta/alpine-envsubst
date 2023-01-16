@@ -1,0 +1,14 @@
+name: Deploy ghcr.io
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: makandra/github-actions/deploy-docker-ghcr@ghcr_push
+        with:
+          path: .
